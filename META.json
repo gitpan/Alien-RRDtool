@@ -15,7 +15,6 @@
    "name" : "Alien-RRDtool",
    "no_index" : {
       "directory" : [
-         "x",
          "inc",
          "author"
       ]
@@ -45,7 +44,7 @@
    "provides" : {
       "Alien::RRDtool" : {
          "file" : "lib/Alien/RRDtool.pm",
-         "version" : "0.01_01"
+         "version" : "0.01_02"
       }
    },
    "release_status" : "testing",
@@ -54,5 +53,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.01_01"
+   "version" : "0.01_02"
 }
