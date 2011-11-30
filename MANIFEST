@@ -9,6 +9,7 @@ MANIFEST.SKIP
 META.json
 META.yml
 README.pod
+rrdtool.tar.gz
 t/000_load.t
 t/001_basic.t
 xt/perlcritic.t
