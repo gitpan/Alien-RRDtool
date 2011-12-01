@@ -44,14 +44,14 @@
    "provides" : {
       "Alien::RRDtool" : {
          "file" : "lib/Alien/RRDtool.pm",
-         "version" : "0.01_04"
+         "version" : "0.02"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "license" : [
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.01_04"
+   "version" : "0.02"
 }
