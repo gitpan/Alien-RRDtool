@@ -3,7 +3,7 @@ use 5.008_001;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use File::ShareDir qw(dist_dir);;
 use File::Spec;
@@ -31,7 +31,7 @@ Alien::RRDtool - Installation of Perl bindings to RRDtool
 
 =head1 VERSION
 
-This document describes Alien::RRDtool version 0.02.
+This document describes Alien::RRDtool version 0.03.
 
 =head1 SYNOPSIS
 
@@ -59,7 +59,7 @@ Some of them might be installed by default.
 
 Second, you can install this distribution by C<cpanm>:
 
-    cpanm https://github.com/gfx/p5-Alien-RRDtool/tarball/master
+    cpanm Alien::RRDtool
 
 Then, you can use the C<RRDs> module.
 
