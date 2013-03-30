@@ -3,7 +3,7 @@ use 5.008_001;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use File::ShareDir qw(dist_dir);;
 use File::Spec;
@@ -31,7 +31,7 @@ Alien::RRDtool - Installation of Perl bindings to RRDtool
 
 =head1 VERSION
 
-This document describes Alien::RRDtool version 0.03.
+This document describes Alien::RRDtool version 0.04.
 
 =head1 SYNOPSIS
 
@@ -39,7 +39,9 @@ This document describes Alien::RRDtool version 0.03.
 
 =head1 DESCRIPTION
 
-This distribution installs F<RRDs.pm> for you.
+This distribution installs F<RRDs.pm> on perls.
+The RRDtool package will install RRDs.pm to the system perl, but there're cases
+we need to install it to perls installded by ourselves.
 
 NOTES: This distribution doesn't install rrdtool itself yet, as
 other Alien::* dists do, but it does so in a future.
@@ -54,6 +56,7 @@ First, you must install the following C libraries which RRDtool depends on:
     xml2
     pango
     cairo
+    XQuartz (for MacOSX)
 
 Some of them might be installed by default.
 

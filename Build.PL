@@ -14,18 +14,27 @@ STDOUT->autoflush(1);
 my $name    = 'rrdtool';
 my $rrdtool = "http://oss.oetiker.ch/rrdtool/pub/${name}.tar.gz";
 
-print "# donwloading $rrdtool\n";
-print "# => ", scalar mirror($rrdtool, "$name.tar.gz"), "\n";
+if (!grep { $_ eq '--no-upgrade' } @ARGV) {
+    print "# donwloading $rrdtool\n";
+    print "# => ", scalar mirror($rrdtool, "$name.tar.gz"), "\n";
+}
+
 print "# unpacking $name.tar.gz\n";
 system("tar", "xzf",  "$name.tar.gz");
 rmtree($name);
+
 my $version = do {
     my @dirs = <rrdtool-*>;
     @dirs == 1 or die "XXX: too many rrdtool-*/: @dirs";
     ( $dirs[0] =~ m/ (\d+ (?: \. \d+)+ ) /xms )[0];
 };
 print "# rrdtool version $version\n";
-rename "$name-$version" => $name;
+symlink "$name-$version" => $name;
+
+if (-e (my $patch = "patch/v$version.patch")) {
+    print "# applying $patch\n";
+    system("cd '$name' && patch -p1 < '../$patch'");
+}
 
 print "# witing Makefile\n";
 my $builder = inc::MyBuilder->new(
@@ -68,8 +77,8 @@ my $builder = inc::MyBuilder->new(
 
     add_to_cleanup => [
         $name,
+        "$name-$version",
         'Makefile',
-        'alien',
         'blib',
     ],
 );

@@ -1,16 +1,25 @@
 package inc::MyBuilder;
 use strict;
 use warnings FATAL => 'all';
-use parent qw(Module::Build);
+use base qw(Module::Build);
 
 use Fatal qw(open);
+use List::Util qw(first);
 use Carp;
 use Config;
 use Cwd;
 use File::Path;
+use File::Find;
 
 use File::chdir;
 use File::Which;
+
+my @pkg_config_path = qw(
+    /usr/local/lib/pkgconfig
+    /usr/lib/pkgconfig
+    /opt/X11/lib/pkgconfig
+);
+
 
 sub xsystem {
     my(@args) = @_;
@@ -34,6 +43,8 @@ sub ACTION_code { # default action
 
         local $ENV{PERL} = $self->perl;
         local $ENV{CC}   = $self->maybe_ccache();
+        local $ENV{PKGCONFIG} = which('pkg-config') or die "no pkg-config(1) found in path.\n";
+        local $ENV{PKG_CONFIG_PATH} = join(':', @pkg_config_path);
         xsystem(
             './configure',
 
@@ -54,10 +65,7 @@ sub ACTION_code { # default action
         xsystem($Config{make}, 'install');
     }
 
-    my @libdirs = (
-        '/usr/local/lib',
-        map { ("$_/usr/lib", "$_/usr/X11/lib") } </Developer/SDKs/MacOSX*>,
-    );
+    my @libdirs = $self->find_libdirs();
 
     my $libs = do {
         open my $fh, '<', $self->notes('name') . '/Makefile';
@@ -107,6 +115,14 @@ sub ACTION_install {
     $self->SUPER::ACTION_install(@args);
 }
 
+sub ACTION_clean {
+    my($self, @args) = @_;
+
+    # work around Module::Build's bug that removing symlinks might fail
+    unlink('rrdtool');
+    $self->SUPER::ACTION_clean(@args);
+}
+
 sub perl_bindings {
     my($self, $block) = @_;
     for my $path(
@@ -135,6 +151,11 @@ sub maybe_ccache {
 
     my $ccache = which('ccache');
     return $ccache ? "ccache $cc" : $cc;
+}
+
+sub find_libdirs {
+    my @dirs = qw(/usr/local/lib /opt/X11/lib);
+    return @dirs;
 }
 
 1;
