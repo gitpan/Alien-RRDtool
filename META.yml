@@ -24,13 +24,13 @@ no_index:
 provides:
   Alien::RRDtool:
     file: lib/Alien/RRDtool.pm
-    version: 0.04
+    version: 0.05
 requires:
   File::ShareDir: 1.00
   perl: 5.008001
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.04
+version: 0.05
 x_test_requires:
   Test::More: 0.88
   Test::Requires: 0.06
