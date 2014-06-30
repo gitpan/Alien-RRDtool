@@ -4,7 +4,7 @@
       "Fuji, Goro (gfx) <gfuji(at)cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4004, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Module::Build version 0.4205",
    "license" : [
       "perl_5"
    ],
@@ -39,12 +39,12 @@
             "File::ShareDir" : "1.00",
             "perl" : "5.008001"
          }
-      }
-   },
-   "provides" : {
-      "Alien::RRDtool" : {
-         "file" : "lib/Alien/RRDtool.pm",
-         "version" : "0.05"
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0.88",
+            "Test::Requires" : "0.06"
+         }
       }
    },
    "release_status" : "stable",
@@ -53,9 +53,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.05",
-   "x_test_requires" : {
-      "Test::More" : "0.88",
-      "Test::Requires" : "0.06"
-   }
+   "version" : "0.06"
 }
